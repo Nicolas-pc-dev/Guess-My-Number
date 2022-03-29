@@ -15,6 +15,7 @@ body {
   font-family: 'Press Start 2P', sans-serif;
   color: #eee;
   background-color: #222;
+
   /* background-color: #60b347; */
 }
 
@@ -33,16 +34,35 @@ main {
   justify-content: space-around;
 }
 
+.redBg {
+  background-color: #b60505;
+  transition: all 0.1s;
+}
+.blackBg {
+  background-color: #222;
+  transition: all 0.3s;
+}
+
+.container {
+  max-width: 900px;
+  display: flex;
+}
 .left {
   width: 52rem;
+  height: 30rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: end;
 }
 
 .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
   width: 52rem;
   font-size: 2rem;
+  height: 30rem;
 }
 
 /* ELEMENTS STYLE */
@@ -55,7 +75,16 @@ h1 {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
+.number-container {
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 62%);
+}
 .number {
   background: #eee;
   color: #333;
@@ -63,23 +92,11 @@ h1 {
   width: 15rem;
   padding: 3rem 0rem;
   text-align: center;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
 }
 
 .between {
-  font-size: 1.4rem;
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-}
-
-.again {
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
+  font-size: 2rem;
+  margin-top: 1.7rem;
 }
 
 .guess {
@@ -92,7 +109,7 @@ h1 {
   width: 25rem;
   text-align: center;
   display: block;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 }
 
 .btn {
@@ -105,15 +122,58 @@ h1 {
   cursor: pointer;
 }
 
+.again {
+  display: none;
+}
+
 .btn:hover {
   background-color: #ccc;
 }
 
 .message {
+  font-size: 2.5rem;
   margin-bottom: 8rem;
   height: 3rem;
 }
 
+.lose-message {
+  margin-top: 70px;
+}
+
 .label-score {
   margin-bottom: 2rem;
+}
+
+@media (max-width: 800px) {
+  main {
+    align-items: unset;
+  }
+  .container {
+    flex-direction: column;
+  }
+  .left {
+    margin-top: 10rem;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  .right {
+    text-align: center;
+    justify-content: space-evenly;
+  }
+  .guess {
+    margin: 2rem 0;
+    width: 20rem;
+  }
+  .message {
+    margin-bottom: 2rem;
+  }
+  .again {
+    display: none;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
