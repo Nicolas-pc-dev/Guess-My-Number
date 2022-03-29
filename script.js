@@ -1,5 +1,6 @@
 'use strict';
 const body = document.querySelector('body');
+const header = document.querySelector('header');
 const title = document.querySelector('h1');
 const gnrContainer = document.querySelector('.container');
 const leftContainer = document.querySelector('.left');
@@ -12,6 +13,7 @@ const resetBtn = document.querySelector('.reset');
 const guessNumber = document.querySelector('.guess');
 const highScoreContent = document.querySelector('.high-score');
 const labelScore = document.querySelector('.label-score');
+const btnSwitch = document.querySelector('#switch');
 
 const getSecretNumber = () => Math.trunc(Math.random() * 20) + 1;
 
@@ -72,6 +74,28 @@ let secretNumber = getSecretNumber();
 let score = 20;
 let highScore = 0;
 
+btnSwitch.addEventListener('click', function () {
+  btnSwitch.classList.toggle('active');
+  body.classList.toggle('light');
+  if (body.classList.contains('light')) {
+    console.log('Light Theme activated');
+    header.style.setProperty('border-bottom', '7px solid #000');
+    guessNumber.style.setProperty('border', '4px solid #000');
+    number.style.setProperty('background', '#000');
+    number.style.setProperty('color', '#fff');
+    checkBtn.style.setProperty('background', '#000');
+    checkBtn.style.setProperty('color', '#fff');
+  } else {
+    console.log('Dark Theme activated');
+    header.style.setProperty('border-bottom', '7px solid #fff');
+    guessNumber.style.setProperty('border', '4px solid #eee');
+    number.style.setProperty('background', '#eee');
+    number.style.setProperty('color', '#000');
+    checkBtn.style.setProperty('background', '#eee');
+    checkBtn.style.setProperty('color', '#000');
+  }
+});
+
 checkBtn.addEventListener('click', function () {
   const guess = Number(guessNumber.value);
 
@@ -106,10 +130,11 @@ checkBtn.addEventListener('click', function () {
     // guessNumber.classList.add('again');
     // labelScore.classList.add('again');
     // message.classList.add('again');
-    gnrContainer.insertAdjacentHTML('afterbegin', html);
+    resetBtn.classList.remove('again');
     toggleBtn();
   }
 });
+
 resetBtn.addEventListener('click', function () {
   console.log(click);
 });
