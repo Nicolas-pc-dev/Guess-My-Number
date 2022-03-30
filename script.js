@@ -15,6 +15,7 @@ const guessNumber = document.querySelector('.guess');
 const highScoreContent = document.querySelector('.high-score');
 const labelScore = document.querySelector('.label-score');
 const btnSwitch = document.querySelector('#switch');
+const betweenP = document.querySelector('.between');
 
 const getSecretNumber = () => Math.trunc(Math.random() * 20) + 1;
 
@@ -142,12 +143,12 @@ checkBtn.addEventListener('click', function () {
     }
   } else {
     themeState = loseDisplay();
-    btnSwitch.addEventListener('click', () => loseDisplay());
-    title.textContent = '¡ You Lost the Game !';
+    title.textContent = '¡ You Lost !';
     displayMessage('💥 💥 💥 💥 💥');
     guessNumber.setAttribute('disabled', '""');
     guessNumber.value = '';
-    numberContainer.textContent = '💀';
+    number.textContent = 'X';
+    betweenP.classList.toggle('again');
     toggleBtn();
   }
 });
@@ -155,7 +156,6 @@ checkBtn.addEventListener('click', function () {
 resetBtn.addEventListener('click', function () {
   body.classList.toggle('redBg');
   if (body.classList.contains('light')) {
-    console.log('Hello');
     lightTheme();
   } else {
     darkTheme();
@@ -167,7 +167,8 @@ resetBtn.addEventListener('click', function () {
   score = 20;
   scoreContent.textContent = '20';
   number.style.width = '15rem';
-  displayMessage('Start guessing ...');
+  displayMessage('¡Start guessing!');
+  betweenP.classList.toggle('again');
   secretNumber = getSecretNumber();
   toggleBtn();
 });
