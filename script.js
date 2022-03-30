@@ -3,6 +3,7 @@ const body = document.querySelector('body');
 const header = document.querySelector('header');
 const title = document.querySelector('h1');
 const gnrContainer = document.querySelector('.container');
+const numberContainer = document.querySelector('.number-container');
 const leftContainer = document.querySelector('.left');
 const rightContainer = document.querySelector('.right');
 const number = document.querySelector('.number');
@@ -58,42 +59,60 @@ const renderWinDisplay = function () {
 };
 
 const bgAlert = function () {
-  body.classList.toggle('redBg');
+  switchStyle(body, 'background', '#b60505');
   setTimeout(() => {
-    body.classList.toggle('redBg');
-  }, 100);
+    if (body.classList.contains('light')) {
+      switchStyle(body, 'background', '#fff');
+    } else {
+      switchStyle(body, 'background', '#000');
+    }
+  }, 450);
 };
 
-const html = `
-<div class="lose-message"> 
-<button class="btn reset">Try Again!</button>
-</div>
-`;
+const loseDisplay = function () {
+  switchStyle(body, 'background', '#b60505');
+  switchStyle(body, 'color', '#fff');
+  switchStyle(header, 'border-bottom', '7px solid #fff');
+  switchStyle(guessNumber, 'border', '4px solid #fff');
+  switchStyle(number, '#eee', '#000');
+  switchStyle(checkBtn, '#eee', '#000');
+};
+
+const switchStyle = function (element, fValue, sValue) {
+  element.className === number.className ||
+  element.className === checkBtn.className
+    ? element.style.setProperty(`background`, fValue) ||
+      element.style.setProperty('color', sValue)
+    : element.style.setProperty(fValue, sValue);
+};
+
+const lightTheme = function () {
+  switchStyle(body, 'background', '#fff');
+  switchStyle(body, 'color', '#000');
+  switchStyle(header, 'border-bottom', '7px solid #000');
+  switchStyle(guessNumber, 'border', '4px solid #000');
+  switchStyle(number, '#000', '#fff');
+  switchStyle(checkBtn, '#000', '#fff');
+};
+
+const darkTheme = function () {
+  switchStyle(body, 'background', '#000');
+  switchStyle(body, 'color', '#fff');
+  switchStyle(header, 'border-bottom', '7px solid #fff');
+  switchStyle(guessNumber, 'border', '4px solid #fff');
+  switchStyle(number, '#fff', '#000');
+  switchStyle(checkBtn, '#fff', '#000');
+};
 
 let secretNumber = getSecretNumber();
 let score = 20;
 let highScore = 0;
+let themeState = darkTheme();
 
 btnSwitch.addEventListener('click', function () {
   btnSwitch.classList.toggle('active');
   body.classList.toggle('light');
-  if (body.classList.contains('light')) {
-    console.log('Light Theme activated');
-    header.style.setProperty('border-bottom', '7px solid #000');
-    guessNumber.style.setProperty('border', '4px solid #000');
-    number.style.setProperty('background', '#000');
-    number.style.setProperty('color', '#fff');
-    checkBtn.style.setProperty('background', '#000');
-    checkBtn.style.setProperty('color', '#fff');
-  } else {
-    console.log('Dark Theme activated');
-    header.style.setProperty('border-bottom', '7px solid #fff');
-    guessNumber.style.setProperty('border', '4px solid #eee');
-    number.style.setProperty('background', '#eee');
-    number.style.setProperty('color', '#000');
-    checkBtn.style.setProperty('background', '#eee');
-    checkBtn.style.setProperty('color', '#000');
-  }
+  body.classList.contains('light') ? lightTheme() : darkTheme();
 });
 
 checkBtn.addEventListener('click', function () {
@@ -119,22 +138,36 @@ checkBtn.addEventListener('click', function () {
       displayMessage('✔️ Correct Number');
       renderWinDisplay();
       setHighScore(score);
+      toggleBtn();
     }
   } else {
-    title.textContent = '💥¡ You Lost the Game !';
-    body.classList.toggle('redBg');
-    rightContainer.classList.add('again');
-    leftContainer.classList.add('again');
-
-    // scoreContent.textContent = 0;
-    // guessNumber.classList.add('again');
-    // labelScore.classList.add('again');
-    // message.classList.add('again');
-    resetBtn.classList.remove('again');
+    themeState = loseDisplay();
+    btnSwitch.addEventListener('click', () => loseDisplay());
+    title.textContent = '¡ You Lost the Game !';
+    displayMessage('💥 💥 💥 💥 💥');
+    guessNumber.setAttribute('disabled', '""');
+    guessNumber.value = '';
+    numberContainer.textContent = '💀';
     toggleBtn();
   }
 });
 
 resetBtn.addEventListener('click', function () {
-  console.log(click);
+  body.classList.toggle('redBg');
+  if (body.classList.contains('light')) {
+    console.log('Hello');
+    lightTheme();
+  } else {
+    darkTheme();
+  }
+  number.textContent = '?';
+  guessNumber.value = '';
+  guessNumber.removeAttribute('disabled');
+  title.textContent = 'Guess My Number!';
+  score = 20;
+  scoreContent.textContent = '20';
+  number.style.width = '15rem';
+  displayMessage('Start guessing ...');
+  secretNumber = getSecretNumber();
+  toggleBtn();
 });
