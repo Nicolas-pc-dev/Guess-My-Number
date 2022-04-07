@@ -27,17 +27,17 @@ const subtractScore = function () {
 const displayMessage = text => (message.textContent = text);
 
 const toggleBtn = function () {
-  resetBtn.classList.toggle('again');
-  checkBtn.classList.toggle('again');
+  resetBtn.classList.toggle('hidden');
+  checkBtn.classList.toggle('hidden');
 };
 
 const resetGame = function () {
   title.textContent = 'Guess My Number!';
-  guessNumber.classList.remove('again');
-  labelScore.classList.remove('again');
-  message.classList.remove('again');
+  guessNumber.classList.remove('hidden');
+  labelScore.classList.remove('hidden');
+  message.classList.remove('hidden');
   body.classList.toggle('redBg');
-  labelScore.classList.remove('again');
+  labelScore.classList.remove('hidden');
   number.style.width = '15rem';
   guessNumber.value = '';
   number.textContent = '?';
@@ -148,7 +148,7 @@ checkBtn.addEventListener('click', function () {
     guessNumber.setAttribute('disabled', '""');
     guessNumber.value = '';
     number.textContent = 'X';
-    betweenP.classList.toggle('again');
+    betweenP.classList.toggle('hidden');
     toggleBtn();
   }
 });
@@ -168,7 +168,7 @@ resetBtn.addEventListener('click', function () {
   scoreContent.textContent = '20';
   number.style.width = '15rem';
   displayMessage('¡Start guessing!');
-  betweenP.classList.toggle('again');
+  betweenP.classList.toggle('hidden');
   secretNumber = getSecretNumber();
   toggleBtn();
 });

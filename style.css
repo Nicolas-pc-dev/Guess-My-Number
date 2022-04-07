@@ -134,7 +134,7 @@ h1 {
   transition: all 1s;
 }
 
-.again {
+.hidden {
   display: none;
 }
 
@@ -221,7 +221,7 @@ h1 {
     transform: translate(-50%, 100%);
   }
   .number {
-    font-size: 4rem;
+    font-size: 3.8rem;
   }
   .left {
     margin-top: 5rem;
@@ -235,6 +235,7 @@ h1 {
   .guess {
     margin: 2rem 0;
     width: 20rem;
+    height: 30px;
   }
   .message {
     margin-bottom: 2rem;
